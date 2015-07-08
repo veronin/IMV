@@ -1,0 +1,13 @@
+
+table {
+    border: none;
+    padding: 5px;
+    alignment-adjust:left; 
+    font-size:14px    ;
+}
+
+.deudor  { alignment-adjust:left;
+    color: red}
+
+.nodeudor  { alignment-adjust:left;
+    color: black}

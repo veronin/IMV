@@ -1,0 +1,177 @@
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #000;
+}
+
+/* Custom default button */
+.btn,
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  border-color: rgba(255, 182, 0, 1); 
+  text-shadow: none; /* Prevent inheritence from `body` */
+ 
+}
+
+/* Cambio el azul de los focos */
+input-medium:focus, search-query:focus,
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
+    border-color: #FFCC00;
+    box-shadow: 0 1px 1px rgba(255, 182, 0, 1) inset, 0 0 8px rgba(255, 182, 0, 0.4);
+    outline: 0 none;
+}
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+  height: 100%;
+  background-color: #fff;
+}
+body {
+  color: #000;
+  text-align: center;
+
+}
+
+/* Extra markup and styles for table-esque vertical and horizontal centering */
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%; /* For at least Firefox */
+  min-height: 100%;
+  -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+          box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+}
+.site-wrapper-inner {
+  display: table-cell;
+  vertical-align: top;
+}
+.cover-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Padding for spacing */
+.inner {
+  padding: 30px;
+}
+
+
+/*
+ * Header
+ */
+.masthead-brand {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.masthead-nav > li {
+  display: inline-block;
+}
+.masthead-nav > li + li {
+  margin-left: 20px;
+}
+.masthead-nav > li > a {
+  padding:5px;     
+  font-size: 16px;
+  font-weight: bold;
+  color: #000; /* IE8 proofing */
+}
+.masthead-nav > li > a:hover {
+  background-color: transparent;
+  border-bottom: 4px solid #FFCC00; }
+.masthead-nav > li > a:focus {
+  color: #FFCC00;
+  background-color: transparent;
+  border:none;
+}
+.masthead-nav > .active > a,
+.masthead-nav > .active > a:hover,
+.masthead-nav > .active > a:focus {
+  font-size:16px;  
+  color: #000;
+  border-bottom: 4px solid #000;
+}
+
+@media (min-width: 768px) {
+  .masthead-brand {
+    float: left;
+  }
+  .masthead-nav {
+    float:none;
+  }
+}
+
+/*
+ * Cover
+ */
+
+.cover {
+  padding: 0 20px;
+}
+.cover .btn {
+  font-size:14px;
+  font-weight: bold;
+  background:#808080;
+  border:2px solid rgba(255, 182, 0, 1);
+  color:#fff;
+}
+.cover .btn-lg:focus {
+  background:rgba(255, 182, 0, 1);
+  border: 2px solid #808080;
+ 
+}
+
+/*
+ * Footer
+ */
+.mastfoot {
+  color: #000; 
+  font-size: 16px;
+  font-weight: bold;/* IE8 proofing 
+  color: rgba(255,255,255,.5);*/
+}
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px) {
+  /* Pull out the header and footer */
+  .masthead {
+    position: fixed;
+    top: 0;
+  }
+  .mastfoot {
+    font-style: italic ;  
+    position: fixed;
+    bottom: 0;
+  }
+  /* Start the vertical centering */
+  .site-wrapper-inner {
+    vertical-align: middle;
+  }
+  /* Handle the widths */
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 100%; /* Must be percentage or pixels for horizontal alignment */
+  }
+}
+
+@media (min-width: 992px) {
+  .masthead,
+  .mastfoot,
+  .cover-container {
+    width: 700px;
+  }
+}
+ .mastfoot a {  color: #808080; 
+ text-decoration:none;}
