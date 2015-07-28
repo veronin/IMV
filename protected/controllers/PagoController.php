@@ -91,17 +91,19 @@ class PagoController extends Controller {
                 
                 $transaction->commit();
                 
+                Yii::app()->user->setFlash('success',"El pago fue registrado.");
                 $this->redirect(array('view', 'id' => $model->idPago));
             }
             $transaction->rollback();
         }
-
+       
         $this->render('update', array('model' => $model,));
             
         }   
         catch(Exception $e)
         {
             $transaction->rollback();
+            
             throw $e;
         }
     
@@ -121,8 +123,10 @@ class PagoController extends Controller {
         if (isset($_POST['BasePago'])) {
             //print_r($model);
             $model->attributes = $_POST['BasePago'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idPago));
+            if ($model->save()){
+                Yii::app()->user->setFlash('success',"Pago modificado.");
+            
+            $this->redirect(array('view', 'id' => $model->idPago));}
         }
 
         $this->render('update', array('model' => $model,
@@ -138,7 +142,7 @@ class PagoController extends Controller {
         if (Yii::app()->request->isPostRequest) {
     // we only allow deletion via POST request
             $this->loadModel($id)->delete();
-
+            Yii::app()->user->setFlash('success',"Pago eliminado.");
     // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));

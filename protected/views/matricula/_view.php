@@ -1,4 +1,7 @@
 <div class="view">
+    <?php
+    /*@var $data Matricula */
+    ?>
 
 		<b><?php echo CHtml::encode($data->getAttributeLabel('idMatricula')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->idMatricula),array('view','id'=>$data->idMatricula)); ?>
@@ -7,7 +10,9 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('idAlumno')); ?>:</b>
 	<?php echo CHtml::encode($data->idAlumno); ?>
 	<br />
-
+    <b>
+	<?php echo CHtml::encode($data->idAlumno0->idPersona0->getFullName()); ?>
+	<br />
 	<b><?php echo CHtml::encode($data->getAttributeLabel('fechaInicio')); ?>:</b>
 	<?php echo CHtml::encode($data->fechaInicio); ?>
 	<br />

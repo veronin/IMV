@@ -3,6 +3,9 @@ $this->breadcrumbs=array(
 	'Pagos'=>array('index'),
 	$model->idPago,
 );
+if(Yii::app()->user->hasFlash('success')):?>
+    <script>alert('<?php echo Yii::app()->user->getFlash('success'); ?>');</script>
+    <?php endif;
 
 $this->menu=array(
 array('label'=>'Listar Pago','url'=>array('index')),
@@ -13,7 +16,7 @@ array('label'=>'Administrar Pago','url'=>array('admin')),
 );
 ?>
 
-<h1>Ver Pago #<?php echo $model->idPago; ?></h1>
+<h1>Ver Pago Nro.<?php echo $model->idPago; ?></h1>
 
 <?php $this->widget('bootstrap.widgets.TbDetailView',array(
 'data'=>$model,

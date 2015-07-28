@@ -3,17 +3,20 @@ $this->breadcrumbs=array(
 	'Personas'=>array('index'),
 	$model->idPersona,
 );
+if(Yii::app()->user->hasFlash('success')):?>
+    <script>alert('<?php echo Yii::app()->user->getFlash('success'); ?>');</script>
+    <?php endif;
 
 $this->menu=array(
-array('label'=>'List Persona','url'=>array('index')),
-array('label'=>'Create Persona','url'=>array('create')),
-array('label'=>'Update Persona','url'=>array('update','id'=>$model->idPersona)),
-array('label'=>'Delete Persona','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->idPersona),'confirm'=>'Are you sure you want to delete this item?')),
-array('label'=>'Manage Persona','url'=>array('admin')),
+array('label'=>'Listar Persona','url'=>array('index')),
+array('label'=>'Crear Persona','url'=>array('create')),
+array('label'=>'Modificar Persona','url'=>array('update','id'=>$model->idPersona)),
+array('label'=>'Borrar Persona','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->idPersona),'confirm'=>'Are you sure you want to delete this item?')),
+array('label'=>'Administrar Persona','url'=>array('admin')),
 );
 ?>
 
-<h3>Persona: <?php echo $model->idPersona; ?></h3>
+<h3>Persona: <?php echo $model->apellido; ?></h3>
 
 <?php $this->widget('bootstrap.widgets.TbDetailView',array(
 'data'=>$model,
@@ -25,7 +28,7 @@ array('label'=>'Manage Persona','url'=>array('admin')),
 		'apellido',
 		'sexo',
 		'lugarNac',
-		'fechaNac',
+		'xfechaNac',
 		'grupoSang',
 		'dirCalle',
 		'dirNro',

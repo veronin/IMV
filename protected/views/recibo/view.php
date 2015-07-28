@@ -14,7 +14,7 @@ array('label'=>'Administrar Recibo','url'=>array('admin')),
 );
 ?>
 
-<h1>Ver Recibo #<?php echo $model->idRecibo; ?></h1>
+<h1>Ver Recibo Nro.<?php echo $model->idRecibo; ?></h1>
 
 <?php $this->widget('bootstrap.widgets.TbDetailView',array(
 'data'=>$model,

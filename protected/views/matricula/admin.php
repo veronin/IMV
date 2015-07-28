@@ -46,6 +46,8 @@ return false;
 'columns'=>array(
 		'idMatricula',
 		'idAlumno',
+                'idAlumno0.idPersona0.fullName',
+                
 		'fechaInicio',
 		'fechaFin',
 		'motivoBaja',

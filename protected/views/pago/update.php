@@ -13,6 +13,6 @@ $this->breadcrumbs=array(
 	);
 	?>
 
-	<h1>Modificar Pago !! <?php echo $model->idPago; ?></h1>
+	<h1>Modificar Pago Nro.<?php echo $model->idPago; ?></h1>
 
 <?php echo $this->renderPartial('_form',array('model'=>$model)); ?>

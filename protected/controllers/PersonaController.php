@@ -35,7 +35,7 @@ array('allow', // allow authenticated user to perform 'create' and 'update' acti
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete'),
+'actions'=>array('admin','delete','mail'),
 'users'=>array('admin'),
 ),
 array('deny',  // deny all users
@@ -69,8 +69,9 @@ $model=new Persona;
 if(isset($_POST['Persona']))
 {
 $model->attributes=$_POST['Persona'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->idPersona));
+if($model->save()){
+Yii::app()->user->setFlash('success',"Persona creada.");
+$this->redirect(array('view','id'=>$model->idPersona));}
 }
 
 $this->render('create',array(
@@ -94,6 +95,7 @@ if(isset($_POST['Persona']))
 {
 $model->attributes=$_POST['Persona'];
 if($model->save())
+Yii::app()->user->setFlash('success',"Persona modificada.");
 $this->redirect(array('view','id'=>$model->idPersona));
 }
 
@@ -160,7 +162,6 @@ if($model===null)
 throw new CHttpException(404,'The requested page does not exist.');
 return $model;
 }
-
 /**
 * Performs the AJAX validation.
 * @param CModel the model to be validated
@@ -173,4 +174,40 @@ echo CActiveForm::validate($model);
 Yii::app()->end();
 }
 }
+
+public function actionMail()
+{
+require_once dirname(__FILE__) . '/../extensions/PHPMailer-master/class.phpmailer.php';
+require_once dirname(__FILE__) . '/../extensions/PHPMailer-master/class.smtp.php';
+$mail=new PHPMailer();
+
+$mail->isSMTP();
+//permite modo debug para ver mensajes de las cosas que van ocurriendo
+$mail->SMTPDebug = 2;
+//Debo de hacer autenticación SMTP
+$mail->SMTPAuth = true;
+$mail->SMTPSecure = "ssl";
+//indico el servidor de Gmail para SMTP
+$mail->Host = "smtp.gmail.com";
+//indico el puerto que usa Gmail
+$mail->Port = 465;
+//indico un usuario / clave de un usuario de gmail
+$mail->Username = "veronin2912@gmail.com";
+$mail->Password = "alberti647";
+$mail->setFrom('veronin2912@gmail.com', 'Veronica Nin');
+$mail->AddReplyTo("veronin2912@gmail.com","Veronica Nin");
+$mail->Subject = "IMV - Recordatorio de Pago";
+$mail->MsgHTML("Le recordamos que el vencimiento de su CUOTA MENSUAL es el dia 10 del corriente. Muchas gracias.");
+//indico destinatario
+$address = "veronica_nin@yahoo.com.ar";
+$mail->AddAddress($address, "Vero");
+if(!$mail->send()) {
+Yii::app()->user->setFlash('success',"ERROR Mensaje no enviado.");
+} else {
+Yii::app()->user->setFlash('success',"Mensaje enviado.");
+ 
+}   
+
+}
+
 }

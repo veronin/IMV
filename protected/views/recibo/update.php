@@ -13,6 +13,6 @@ $this->breadcrumbs=array(
 	);
 	?>
 
-	<h1>Cobrar Recibo <?php echo $model->idRecibo; ?></h1>
+	<h1>Modificar Recibo Nro.<?php echo $model->idRecibo; ?></h1>
 
 <?php echo $this->renderPartial('_form',array('model'=>$model)); ?>

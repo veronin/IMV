@@ -62,10 +62,11 @@ class ReciboController extends Controller {
     // Uncomment the following line if AJAX validation is needed
     // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Recibo'])) {
-            $model->attributes = $_POST['Recibo'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idRecibo));
+        if (isset($_POST['BaseRecibo'])) {
+            $model->attributes = $_POST['BaseRecibo'];
+            if ($model->save()){
+                Yii::app()->user->setFlash('success',"Recibo creado.");
+            $this->redirect(array('view', 'id' => $model->idRecibo));}
         }
 
         $this->render('create', array(
@@ -84,10 +85,12 @@ class ReciboController extends Controller {
     // Uncomment the following line if AJAX validation is needed
     // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Recibo'])) {
-            $model->attributes = $_POST['Recibo'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->idRecibo));
+        if (isset($_POST['BaseRecibo'])) {
+            $model->attributes = $_POST['BaseRecibo'];
+            if ($model->save()){
+                Yii::app()->user->setFlash('success',"Recibo modificado.");
+            
+                $this->redirect(array('view', 'id' => $model->idRecibo));}
         }
 
         $this->render('update', array(
@@ -104,7 +107,7 @@ class ReciboController extends Controller {
         if (Yii::app()->request->isPostRequest) {
     // we only allow deletion via POST request
             $this->loadModel($id)->delete();
-
+            Yii::app()->user->setFlash('success',"Recibo eliminado.");
     // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
@@ -168,13 +171,17 @@ class ReciboController extends Controller {
         
         $criteria0 = new CDbCriteria();
         $criteria0->condition = "ciclo = :ciclo AND mes = :mes";
-        $criteria0->params = array(':mes'=>date('m'), ':ciclo'=>date('Y'));
+        $criteria0->params = array(':mes'=>8, ':ciclo'=>2015);
+        
+        $rec = Recibo::model()->findAll($criteria0); 
+        $recibos = new Recibo();
+        $transaction=$recibos->dbConnection->beginTransaction();
+        try
+        {
+        if (count($rec)==0){
             
-        $rec = Recibo::model()->findAll($criteria0);
-        
-        if ($rec == NULL){
-        
-    // Por cada cuenta creo un recibo para el mes  
+            
+        // Por cada cuenta creo un recibo para el mes  
 
         $cuentas = Cuenta::model()->findAll();
         
@@ -183,14 +190,16 @@ class ReciboController extends Controller {
             $cta = $cuenta->idCuenta;
         
             $recibos = new Recibo();
-
+           
             $recibos->idCuenta = $cta;
             $recibos->concepto = 'CUOTA';
             $recibos->fechaEmision = date('Y-m-d H:i:s');
             $recibos->mes = date('m');
             $recibos->ciclo = date('Y');
-            $recibos->save();
-            
+            if(!$recibos->save()){
+                throw new Exception ('Error al generar recibo'.CVarDumper::dumpAsString($recibos->getErrors()));
+                Yii::log(CVarDumper::dumpAsString($recibos->getErrors()), 'error');
+            }
             // Por cada recibo creo los item de cada alumno matriculado de ese cliente  
 
             $criteria = new CDbCriteria();
@@ -230,7 +239,8 @@ class ReciboController extends Controller {
             
             $recibos->importePendiente = $sumaImportes;
             $recibos->save();
-            
+           
+           
         endforeach;
         
         // Envio mensajes a la vista
@@ -241,13 +251,19 @@ class ReciboController extends Controller {
         else { 
         Yii::app()->user->setFlash('success',"Ya existen los recibos del periodo.");    
         }
-        
+        $transaction->commit();
+        }
+        catch(Exception $e)
+        {
+            $transaction->rollback();
+            Yii::app()->user->setFlash('error',$e->getMessage());    
+            
+       
+        }
         $dataProvider = new CActiveDataProvider('Recibo');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
-       
-       
+        } 
+        
     }
-
-}

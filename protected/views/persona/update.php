@@ -13,6 +13,6 @@ $this->breadcrumbs=array(
 	);
 	?>
 
-	<h1>Modificar Persona <?php echo $model->idPersona; ?></h1>
+	<h3>Modificar: <?php echo $model->apellido . ", " . $model->nombre ?></h3>
 
 <?php echo $this->renderPartial('_form',array('model'=>$model)); ?>

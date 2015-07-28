@@ -58,7 +58,7 @@ return false;
                                 //'name'=>'publishDate',
                                 'model'=>$model,
                                 'attribute'=>'xfechaNac',
-                                'language'=>'es_ar',
+                                'language'=>'es',
                                 // additional javascript options for the date picker plugin
                                 'options'=>array(
                                     'showAnim'=>'fold',
@@ -81,9 +81,35 @@ return false;
 		'email',
 		'profesion',
 		*/
-array(
-'class'=>'bootstrap.widgets.TbButtonColumn',
-),
+            array
+                (
+                    'class'=>'bootstrap.widgets.TbButtonColumn',
+                    'deleteConfirmation'=>"js:'Desea eliminar la persona?'" ,
+                    'template'=>'{view}{update}{delete}',
+                    'buttons'=>array
+                    (
+                        'view' => array
+                        (
+                            'label'=>'Ver Persona',
+                           
+                        ),
+                        'update' => array
+                        (
+                            'label'=>'Modificar Persona',
+                           
+                        ),
+                        'delete' => array
+                        (
+                            'label'=>'Eliminar Persona',
+                            
+                           
+                        ),
+                    ),
+                ),
+   
+    
+    
+
 ),
 )); 
 /*$this->widget('application.extensions.primerWidget.PrimerWidget', array('mensaje'=>'Mensaje desde la VISTA'));

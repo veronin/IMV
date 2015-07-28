@@ -53,8 +53,9 @@ LISTADO DE ALUMNOS COMPLETO -->
                 'nombreCompleto',  
 		'legajo',
 		'lua',
+                /*
 		'idMadre',
-		/*
+		
 		'idTutor',
 		'idCliente',
 		*/
